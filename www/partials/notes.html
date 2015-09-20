@@ -9,5 +9,17 @@
       <i class="ion-gear-a"></i>
     </button>
   </ion-nav-buttons>
+  <ion-content>
+    <ion-list ng-controller="NoteCtrl"
+              show-delete="shouldShowDelete"
+              show-reorder="shouldShowReorder">
+      <ion-item>
+        First Note
+        <ion-option-button class="button-assertive">Edit </ion-option-button>
+        <ion-option-button class="button-balanced">Move </ion-option-button>
+        <ion-option-button class="button-positive">Share </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-view>
 

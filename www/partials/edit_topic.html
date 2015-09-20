@@ -1,0 +1,20 @@
+<ion-view ng-controller="EditTopicCtrl" view-title="{{topicName}}">
+  <ion-content>
+    <div class="list card">
+
+      <div class="item item-thumbnail-left">
+       <input type="text" placeholder="Title" ng-model="topic.title">
+      </div>
+
+      <div class="item item-input">
+        <textarea placeholder="Description" spellcheck="true" rows="5" autocomplete="true" ng-model="topic.description">
+        </textarea>
+      </div>
+
+    </div>
+
+    <div class="button button-full button-positive" ng-click="SaveTopic()">Save</div>
+
+  </ion-content>
+</ion-view>
+
