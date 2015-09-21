@@ -15,7 +15,7 @@
         controller: 'TopicCtrl'
       })
       .state('notes',{
-        url: '/notes',
+        url: '/notes/:topicId',
         templateUrl: 'partials/notes.html',
         controller: 'NoteCtrl'
       })
@@ -28,6 +28,16 @@
       url:'/addTopic',
       templateUrl: 'partials/edit_topic.html',
       controller: 'EditTopicCtrl'
+    })
+    .state('editNote',{
+      url:'/editNote/:topicId/:noteId',
+      templateUrl: 'partials/edit_note.html',
+      controller: 'EditNoteCtrl'
+    })
+    .state('addNote',{
+      url:'/addNote/:topicId',
+      templateUrl: 'partials/edit_note.html',
+      controller: 'EditNoteCtrl'
     });
 
     $urlRouterProvider.otherwise('/topics');
@@ -46,12 +56,6 @@
       $state.go('editTopic',params);
       $ionicListDelegate.closeOptionButtons();
     }
-
-  }]);
-
-  jantApp.controller('NoteCtrl',['$scope',function($scope){
-    $scope.shouldShowDelete=false;
-    $scope.shouldShowReorder=false;
 
   }]);
 
@@ -74,6 +78,47 @@
       }
       $state.go('topics');
     }
+  }]);
+
+  jantApp.controller('NoteCtrl',['$scope','$state','$stateParams','noteManager',
+    function($scope,$state,$stateParams,noteManager){
+    $scope.shouldShowDelete=false;
+    $scope.shouldShowReorder=false;
+    $scope.topic = noteManager.getTopic($stateParams.topicId);
+    $scope.topicName = $scope.topic.title;
+    $scope.notesList = noteManager.getListofNotes($scope.topic.topicId);
+    $scope.NewNote = function() {
+      var params = {
+        topicId:$stateParams.topicId
+      };
+      $state.go('addNote',params);
+    };
+  }]);
+
+  jantApp.controller('EditNoteCtrl',['$scope','$state','$stateParams','noteManager',
+
+    function($scope,$state,$stateParams,noteManager) {
+
+      if($stateParams.noteId === undefined) {
+        $scope.noteName = "New Note";
+        $scope.note = {};
+      } else {
+        $scope.note = noteManager.getNote($stateParams.topicId,$stateParams.noteId);
+        $scope.noteName = $scope.note.title;
+      }
+      $scope.SaveNote = function() {
+        var topic = noteManager.getTopic($stateParams.topicId);
+        if($scope.note.noteId === undefined) {
+          noteManager.createNewNote(topic.topicId,$scope.note);
+        } else {
+          noteManager.updateNote(topic.topicId,$stateParams.noteId,$scope.note);
+        }
+        var params = {
+          topicId:topic.topicId
+        };
+        $state.go('notes',params);
+      }
+
   }]);
 
 

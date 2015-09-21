@@ -12,7 +12,7 @@
   <ion-content>
     <ion-list show-delete="shouldShowDelete"
               show-reorder="shouldShowReorder">
-      <ion-item class="item item-avatar-left" ng-repeat="topic in topicsList" ng-href="#">
+      <ion-item class="item item-avatar-left" ng-repeat="topic in topicsList" ng-href="#/notes/{{topic.topicId}}">
           <img ng-src="{{topic.image}}">
           <h2>{{topic.title}}</h2>
           <p>{{topic.description}}</p>

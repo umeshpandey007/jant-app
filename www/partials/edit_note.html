@@ -1,0 +1,19 @@
+<ion-view ng-controller="EditNoteCtrl" view-title="{{noteName}}">
+  <ion-content>
+    <div class="list card">
+
+      <div class="item">
+        <input type="text" placeholder="Title" ng-model="note.title">
+      </div>
+
+      <div class="item item-input">
+        <textarea placeholder="Description" spellcheck="true" rows="10" autocomplete="true" ng-model="note.description">
+        </textarea>
+      </div>
+
+    </div>
+
+    <div class="button button-full button-positive" ng-click="SaveNote()">Save</div>
+
+  </ion-content>
+</ion-view>

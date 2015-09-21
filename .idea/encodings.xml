@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/www/js/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/js/noteManager.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/partials/edit_note.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/partials/edit_topic.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/partials/notes.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/partials/topics.html" charset="UTF-8" />

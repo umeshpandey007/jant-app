@@ -1,4 +1,4 @@
-<ion-view view-title="Notes">
+<ion-view view-title="{{topicName}}" ng-controller="NoteCtrl">
   <ion-nav-buttons side="left">
     <button class="button" ng-click="NewNote()">
       <span><i class="ion-plus"></i> New</span>
@@ -10,13 +10,11 @@
     </button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-list ng-controller="NoteCtrl"
-              show-delete="shouldShowDelete"
+    <ion-list show-delete="shouldShowDelete"
               show-reorder="shouldShowReorder">
-      <ion-item>
-        First Note
-        <ion-option-button class="button-assertive">Edit </ion-option-button>
-        <ion-option-button class="button-balanced">Move </ion-option-button>
+      <ion-item ng-repeat="note in notesList" ng-href="#/editNote/{{topic.topicId}}/{{note.noteId}}">
+        <h2>{{note.title}}</h2>
+        <p>{{note.description}}</p>
         <ion-option-button class="button-positive">Share </ion-option-button>
       </ion-item>
     </ion-list>
