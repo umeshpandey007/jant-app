@@ -33,12 +33,18 @@
     $urlRouterProvider.otherwise('/topics');
   }]);
 
-  jantApp.controller('TopicCtrl',['$scope','$state','noteManager',function($scope,$state,noteManager){
+  jantApp.controller('TopicCtrl',['$scope','$state','$ionicListDelegate','noteManager',
+    function($scope,$state,$ionicListDelegate,noteManager){
     $scope.shouldShowDelete=false;
     $scope.shouldShowReorder=false;
     $scope.topicsList = noteManager.getListofTopics();
     $scope.NewTopic = function() {
       $state.go('addTopic');
+    };
+    $scope.EditTopic = function(topicId) {
+      var params = {topicId:topicId};
+      $state.go('editTopic',params);
+      $ionicListDelegate.closeOptionButtons();
     }
 
   }]);
@@ -61,10 +67,10 @@
       }
       $scope.SaveTopic = function() {
       //Save $scope.topic in NoteManager topic
-      if($stateParams.topicId === undefined) {
+      if($scope.topic.topicId === undefined) {
         noteManager.createNewTopic($scope.topic);
       } else {
-        noteManager.updateTopic($stateParams.topicId,$scope.topic);
+        noteManager.updateTopic($scope.topic.topicId,$scope.topic);
       }
       $state.go('topics');
     }

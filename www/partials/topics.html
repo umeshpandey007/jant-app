@@ -16,7 +16,7 @@
           <img ng-src="{{topic.image}}">
           <h2>{{topic.title}}</h2>
           <p>{{topic.description}}</p>
-        <ion-option-button class="button-assertive">Edit </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="EditTopic({{topic.topicId}})">Edit </ion-option-button>
         <ion-option-button class="button-positive">Share </ion-option-button>
       </ion-item>
     </ion-list>

@@ -12,6 +12,7 @@
     //sample topic
     var topic1 = {};
     topic1.topicId = Date.now();
+    console.log(topic1.topicId);
     topic1.title="Home";
     topic1.description = "This is a sample Home category";
     topics.push(topic1);
@@ -28,17 +29,18 @@
         }
       },
       updateTopic: function(topicId,topic){
-        for(var i=0; i<topics.length();i++)
+        for(var i=0; i<topics.length;i++)
         {
           if(topicId == topics[i].topicId)
           {
             topics[i] = topic;
+            return;
           }
         }
         topics[i] = undefined;
       },
       deleteTopic: function(topicId){
-        for(var i=0; i<topics.length();i++)
+        for(var i=0; i<topics.length;i++)
         {
           if(topicId == topics[i].topicId)
           {
@@ -47,7 +49,7 @@
         }
       },
       getTopic: function(topicId){
-        for(var i=0; i<topics.length();i++)
+        for(var i=0; i<topics.length;i++)
         {
           if(topicId == topics[i].topicId)
           {
