@@ -1,4 +1,4 @@
-<ion-view view-title="Topics" ng-controller="TopicCtrl">
+<ion-view view-title="Categories" ng-controller="TopicCtrl">
   <ion-nav-buttons side="right">
     <button class="button" ng-click="NewTopic()">
       <span><i class="ion-plus-round"></i> New</span>
@@ -10,14 +10,17 @@
     </button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-list show-delete="shouldShowDelete"
-              show-reorder="shouldShowReorder">
+    <ion-list show-reorder="shouldShowReorder">
       <ion-item class="item item-avatar-left" ng-repeat="topic in topicsList" ng-href="#/notes/{{topic.topicId}}">
           <img ng-src="{{topic.image}}">
           <h2>{{topic.title}}</h2>
           <p>{{topic.description}}</p>
-        <ion-option-button class="button-assertive" ng-click="EditTopic({{topic.topicId}})">Edit </ion-option-button>
-        <ion-option-button class="button-positive">Share </ion-option-button>
+        <ion-option-button class="button-balanced" ng-click="EditTopic({{topic.topicId}})">
+          <span>Edit</span>
+        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="DelTopic({{topic.topicId}})">
+          <span>Delete</span>
+        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>

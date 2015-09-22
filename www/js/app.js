@@ -45,7 +45,6 @@
 
   jantApp.controller('TopicCtrl',['$scope','$state','$ionicListDelegate','noteManager',
     function($scope,$state,$ionicListDelegate,noteManager){
-    $scope.shouldShowDelete=false;
     $scope.shouldShowReorder=false;
     $scope.topicsList = noteManager.getListofTopics();
     $scope.NewTopic = function() {
@@ -55,12 +54,16 @@
       var params = {topicId:topicId};
       $state.go('editTopic',params);
       $ionicListDelegate.closeOptionButtons();
-    }
+    };
+
+    $scope.DelTopic = function(topicId) {
+      noteManager.deleteTopic(topicId);
+    };
 
   }]);
 
-  jantApp.controller('EditTopicCtrl',['$scope','$state','$stateParams','noteManager',
-    function($scope,$state,$stateParams,noteManager){
+  jantApp.controller('EditTopicCtrl',['$scope','$state','$stateParams','$ionicHistory','noteManager',
+    function($scope,$state,$stateParams,$ionicHistory,noteManager){
 
       if($stateParams.topicId === undefined) {
         $scope.topicName = "New Topic";
@@ -70,19 +73,23 @@
         $scope.topicName = $scope.topic.title;
       }
       $scope.SaveTopic = function() {
-      //Save $scope.topic in NoteManager topic
-      if($scope.topic.topicId === undefined) {
-        noteManager.createNewTopic($scope.topic);
-      } else {
-        noteManager.updateTopic($scope.topic.topicId,$scope.topic);
-      }
-      $state.go('topics');
-    }
+        //Save $scope.topic in NoteManager topic
+        if($scope.topic.topicId === undefined) {
+          noteManager.createNewTopic($scope.topic);
+        } else {
+          noteManager.updateTopic($scope.topic.topicId,$scope.topic);
+        }
+        $state.go('topics');
+      };
+
+      $scope.GoBack = function() {
+        $ionicHistory.goBack();
+      };
+
   }]);
 
   jantApp.controller('NoteCtrl',['$scope','$state','$stateParams','$ionicHistory','noteManager',
     function($scope,$state,$stateParams,$ionicHistory,noteManager){
-    $scope.shouldShowDelete=false;
     $scope.shouldShowReorder=false;
     $scope.topic = noteManager.getTopic($stateParams.topicId);
     $scope.topicName = $scope.topic.title;
@@ -98,11 +105,15 @@
       $ionicHistory.goBack();
     };
 
+    $scope.DelNote = function(topicId,noteId) {
+      noteManager.deleteNote(topicId,noteId);
+    };
+
   }]);
 
-  jantApp.controller('EditNoteCtrl',['$scope','$state','$stateParams','noteManager',
+  jantApp.controller('EditNoteCtrl',['$scope','$state','$stateParams','$ionicHistory','noteManager',
 
-    function($scope,$state,$stateParams,noteManager) {
+    function($scope,$state,$stateParams,$ionicHistory,noteManager) {
 
       if($stateParams.noteId === undefined) {
         $scope.noteName = "New Note";
@@ -122,7 +133,11 @@
           topicId:topic.topicId
         };
         $state.go('notes',params);
-      }
+      };
+
+      $scope.GoBack = function() {
+        $ionicHistory.goBack();
+      };
 
   }]);
 

@@ -12,12 +12,13 @@
 
 
   <ion-content>
-    <ion-list show-delete="shouldShowDelete"
-              show-reorder="shouldShowReorder">
+    <ion-list show-reorder="shouldShowReorder">
       <ion-item ng-repeat="note in notesList" ng-href="#/editNote/{{topic.topicId}}/{{note.noteId}}">
         <h2>{{note.title}}</h2>
         <p>{{note.description}}</p>
-        <ion-option-button class="button-positive">Share </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="DelNote({{topic.topicId}},{{note.noteId}})">
+          <span>Delete</span>
+        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>
