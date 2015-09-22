@@ -80,8 +80,8 @@
     }
   }]);
 
-  jantApp.controller('NoteCtrl',['$scope','$state','$stateParams','noteManager',
-    function($scope,$state,$stateParams,noteManager){
+  jantApp.controller('NoteCtrl',['$scope','$state','$stateParams','$ionicHistory','noteManager',
+    function($scope,$state,$stateParams,$ionicHistory,noteManager){
     $scope.shouldShowDelete=false;
     $scope.shouldShowReorder=false;
     $scope.topic = noteManager.getTopic($stateParams.topicId);
@@ -93,6 +93,11 @@
       };
       $state.go('addNote',params);
     };
+
+    $scope.GoBack = function() {
+      $ionicHistory.goBack();
+    };
+
   }]);
 
   jantApp.controller('EditNoteCtrl',['$scope','$state','$stateParams','noteManager',
