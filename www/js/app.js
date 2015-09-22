@@ -72,17 +72,14 @@
         $scope.topic = noteManager.getTopic($stateParams.topicId);
         $scope.topicName = $scope.topic.title;
       }
-      $scope.SaveTopic = function() {
+
+      $scope.GoBack = function() {
         //Save $scope.topic in NoteManager topic
         if($scope.topic.topicId === undefined) {
           noteManager.createNewTopic($scope.topic);
         } else {
           noteManager.updateTopic($scope.topic.topicId,$scope.topic);
         }
-        $state.go('topics');
-      };
-
-      $scope.GoBack = function() {
         $ionicHistory.goBack();
       };
 
@@ -122,20 +119,14 @@
         $scope.note = noteManager.getNote($stateParams.topicId,$stateParams.noteId);
         $scope.noteName = $scope.note.title;
       }
-      $scope.SaveNote = function() {
+
+      $scope.GoBack = function() {
         var topic = noteManager.getTopic($stateParams.topicId);
         if($scope.note.noteId === undefined) {
           noteManager.createNewNote(topic.topicId,$scope.note);
         } else {
           noteManager.updateNote(topic.topicId,$stateParams.noteId,$scope.note);
         }
-        var params = {
-          topicId:topic.topicId
-        };
-        $state.go('notes',params);
-      };
-
-      $scope.GoBack = function() {
         $ionicHistory.goBack();
       };
 
