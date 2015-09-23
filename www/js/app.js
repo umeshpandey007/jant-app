@@ -115,6 +115,15 @@
       noteManager.deleteNote(topicId,noteId);
     };
 
+    $scope.ReorderButtonState = function(){
+      $scope.shouldShowReorder = !$scope.shouldShowReorder;
+    };
+
+    $scope.MoveNote = function(note, fromIndex, toIndex){
+      $scope.notesList.splice(fromIndex,1);
+      $scope.notesList.splice(toIndex,0,note);
+    };
+
   }]);
 
   jantApp.controller('EditNoteCtrl',['$scope','$state','$stateParams','$ionicHistory','noteManager',
