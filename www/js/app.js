@@ -60,6 +60,15 @@
       noteManager.deleteTopic(topicId);
     };
 
+    $scope.ReorderButtonState = function(){
+      $scope.shouldShowReorder = !$scope.shouldShowReorder;
+    };
+
+    $scope.MoveTopic = function(topic, fromIndex, toIndex){
+      $scope.topicsList.splice(fromIndex,1);
+      $scope.topicsList.splice(toIndex,0,topic);
+    };
+
   }]);
 
   jantApp.controller('EditTopicCtrl',['$scope','$state','$stateParams','$ionicHistory','noteManager',

@@ -5,16 +5,22 @@
     </button>
   </ion-nav-buttons>
   <ion-nav-buttons side="left">
-    <button class="button" ng-click="Login()">
-      <i class="ion-log-in"></i>
+    <button class="button" ng-hide="shouldShowReorder" ng-click="ReorderButtonState()">
+      <span><i class="ion-shuffle"></i> Reorder</span>
+    </button>
+    <button class="button" ng-show="shouldShowReorder" ng-click="ReorderButtonState()">
+      <span><i class="ion-checkmark-round"></i> Done</span>
     </button>
   </ion-nav-buttons>
   <ion-content>
     <ion-list show-reorder="shouldShowReorder">
       <ion-item class="item item-avatar-left" ng-repeat="topic in topicsList" ng-href="#/notes/{{topic.topicId}}">
-          <img ng-src="{{topic.image}}">
-          <h2>{{topic.title}}</h2>
-          <p>{{topic.description}}</p>
+        <ion-reorder-button class="ion-navicon"
+                            on-reorder="MoveTopic(topic, $fromIndex, $toIndex)">
+        </ion-reorder-button>
+        <img ng-src="{{topic.image}}">
+        <h2>{{topic.title}}</h2>
+        <p>{{topic.description}}</p>
         <ion-option-button class="button-balanced" ng-click="EditTopic({{topic.topicId}})">
           <span>Edit</span>
         </ion-option-button>
