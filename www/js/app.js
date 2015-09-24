@@ -62,6 +62,7 @@
 
     $scope.ReorderButtonState = function(){
       $scope.shouldShowReorder = !$scope.shouldShowReorder;
+      noteManager.persistInLocalStorageFn();
     };
 
     $scope.MoveTopic = function(topic, fromIndex, toIndex){
@@ -117,6 +118,7 @@
 
     $scope.ReorderButtonState = function(){
       $scope.shouldShowReorder = !$scope.shouldShowReorder;
+      noteManager.persistInLocalStorageFn();
     };
 
     $scope.MoveNote = function(note, fromIndex, toIndex){

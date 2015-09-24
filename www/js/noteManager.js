@@ -7,27 +7,16 @@
   window.notesManagerMod = notesManagerMod;
 
   notesManagerMod.factory('noteManager',function(){
-    var topics=[];
+    var topics= (angular.fromJson(window.localStorage['topics'])) || [];
 
-    //sample topic
-    var topic1 = {};
-    topic1.topicId = Date.now();
-    topic1.title="Home";
-    topic1.description = "This is a sample Home category";
-    topic1.notes = [];
-    var note1 = {};
-    note1.noteId = Date.now();
-    note1.title="Note1";
-    note1.description = "This is text of Note1";
-    topic1.notes.push(note1);
-    var note2 = {};
-    note2.noteId = Date.now()+1;
-    note2.title="Note2";
-    note2.description = "This is text of Note2";
-    topic1.notes.push(note2);
-    topics.push(topic1);
-
+    var persistInLocalStorage = function() {
+      window.localStorage['topics'] = angular.toJson(topics);
+    };
+    
     return {
+      persistInLocalStorageFn: function(){
+        persistInLocalStorage();
+      },
       getListofTopics: function(){
         return topics;
       },
@@ -37,6 +26,7 @@
           topic.topicId = Date.now();
           topic.notes = [];
           topics.push(topic);
+          persistInLocalStorage();
         }
       },
       updateTopic: function(topicId,topic){
@@ -45,6 +35,7 @@
           if(topicId == topics[i].topicId)
           {
             topics[i] = topic;
+            persistInLocalStorage();
             return;
           }
         }
@@ -58,6 +49,7 @@
             topics.splice(i,1);
           }
         }
+        persistInLocalStorage();
       },
       getTopic: function(topicId){
         for(var i=0; i<topics.length;i++)
@@ -89,6 +81,7 @@
             if(note.title != undefined || note.description != undefined) {
               note.noteId = Date.now();
               topics[i].notes.push(note);
+              persistInLocalStorage();
             }
           }
         }
@@ -103,6 +96,7 @@
               if(noteId == topics[i].notes[j].noteId)
               {
                 topics[i].notes[j] = note;
+                persistInLocalStorage();
                 return;
               }
             }
@@ -124,6 +118,7 @@
             }
           }
         }
+        persistInLocalStorage();
       },
       getNote: function(topicId,noteId){
         for(var i=0; i<topics.length;i++)
